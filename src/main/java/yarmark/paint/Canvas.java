@@ -1,14 +1,10 @@
 package yarmark.paint;
 
-import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
-import java.awt.image.Raster;
-import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
@@ -16,11 +12,10 @@ public class Canvas extends JPanel {
 	private static final long serialVersionUID = 1L;
 
 	private BufferedImage bufferedImage;
-	private Point previous;
-	private Point current;
+	private Tool tool;
 
 	public Canvas() {
-
+		this.tool = new LineTool();
 		bufferedImage = new BufferedImage(800, 600, BufferedImage.TYPE_INT_ARGB);
 
 		this.addMouseListener(new MouseListener() {
@@ -45,10 +40,7 @@ public class Canvas extends JPanel {
 
 			@Override
 			public void mousePressed(MouseEvent e) {
-				previous = e.getPoint();
-
-				Graphics g = bufferedImage.getGraphics();
-				g.setColor(Color.blue);
+				tool.mousePressed(bufferedImage.getGraphics(), e.getX(), e.getY());
 				repaint();
 			}
 
@@ -58,13 +50,7 @@ public class Canvas extends JPanel {
 
 					@Override
 					public void mouseDragged(MouseEvent e) {
-						current = e.getPoint();
-
-						Graphics g = bufferedImage.getGraphics();
-						g.setColor(Color.blue);
-						g.drawLine((int) previous.getX(), (int) previous.getY(), (int) current.getX(),
-								(int) current.getY());
-						previous = current;
+						tool.mouseDragged(bufferedImage.getGraphics(), e.getX(), e.getY());
 						repaint();
 					}
 
@@ -82,6 +68,8 @@ public class Canvas extends JPanel {
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		g.drawImage(bufferedImage, 0, 0, null);
+		tool.drawPreview(g);
+
 	}
 
 }
