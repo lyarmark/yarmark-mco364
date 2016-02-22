@@ -15,7 +15,7 @@ public class Canvas extends JPanel {
 	private Tool tool;
 
 	public Canvas() {
-		this.tool = new OvalTool();
+		this.tool = new PencilTool();
 		buffer = new BufferedImage(800, 600, BufferedImage.TYPE_INT_ARGB);
 
 		this.addMouseListener(new MouseListener() {
@@ -75,4 +75,7 @@ public class Canvas extends JPanel {
 
 	}
 
+	public void setTool(Tool tool) {
+		this.tool = tool;
+	}
 }
