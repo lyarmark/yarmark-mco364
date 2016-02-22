@@ -1,4 +1,4 @@
-package yarmark.mco364;
+package yarmark.mavenProject;
 
 //main difference btw. junit 3 and 4 is use of annotations
 //if you want to use annotations, you can comment out AppTest methods
@@ -7,7 +7,7 @@ package yarmark.mco364;
 //import junit.framework.Test;
 //import junit.framework.TestCase;
 //import junit.framework.TestSuite;
-import static org.junit.Assert.assertEquals;	//import this instead of doing Assert.assert___
+import static org.junit.Assert.assertEquals; //import this instead of doing Assert.assert___
 import org.junit.Test;
 
 /**

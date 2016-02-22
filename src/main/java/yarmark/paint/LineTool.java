@@ -20,7 +20,7 @@ public class LineTool implements Tool {
 
 	@Override
 	public void mouseReleased(Graphics g, int x, int y) {
-		g.setColor(Color.green);
+		g.setColor(Color.pink);
 		g.drawLine(x1, y1, x, y);
 	}
 

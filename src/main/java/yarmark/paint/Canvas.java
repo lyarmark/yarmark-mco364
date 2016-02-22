@@ -11,12 +11,12 @@ import javax.swing.JPanel;
 public class Canvas extends JPanel {
 	private static final long serialVersionUID = 1L;
 
-	private BufferedImage bufferedImage;
+	private BufferedImage buffer;
 	private Tool tool;
 
 	public Canvas() {
-		this.tool = new LineTool();
-		bufferedImage = new BufferedImage(800, 600, BufferedImage.TYPE_INT_ARGB);
+		this.tool = new OvalTool();
+		buffer = new BufferedImage(800, 600, BufferedImage.TYPE_INT_ARGB);
 
 		this.addMouseListener(new MouseListener() {
 
@@ -40,34 +40,37 @@ public class Canvas extends JPanel {
 
 			@Override
 			public void mousePressed(MouseEvent e) {
-				tool.mousePressed(bufferedImage.getGraphics(), e.getX(), e.getY());
+				tool.mousePressed(buffer.getGraphics(), e.getX(), e.getY());
 				repaint();
 			}
 
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				addMouseMotionListener(new MouseMotionListener() {
-
-					@Override
-					public void mouseDragged(MouseEvent e) {
-						tool.mouseDragged(bufferedImage.getGraphics(), e.getX(), e.getY());
-						repaint();
-					}
-
-					@Override
-					public void mouseMoved(MouseEvent e) {
-
-					}
-				});
+				tool.mouseReleased(buffer.getGraphics(), e.getX(), e.getY());
+				repaint();
 
 			}
 		});
+		addMouseMotionListener(new MouseMotionListener() {
+
+			@Override
+			public void mouseDragged(MouseEvent e) {
+				tool.mouseDragged(buffer.getGraphics(), e.getX(), e.getY());
+				repaint();
+			}
+
+			@Override
+			public void mouseMoved(MouseEvent e) {
+
+			}
+		});
+
 	}
 
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		g.drawImage(bufferedImage, 0, 0, null);
+		g.drawImage(buffer, 0, 0, null);
 		tool.drawPreview(g);
 
 	}
