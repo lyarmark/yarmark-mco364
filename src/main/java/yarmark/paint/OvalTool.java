@@ -15,6 +15,7 @@ public class OvalTool implements Tool {
 		this.y1 = y;
 		this.x2 = x;
 		this.y2 = y;
+		
 	}
 
 	@Override
@@ -63,6 +64,12 @@ public class OvalTool implements Tool {
 			// Q4
 			g.fillOval(x1, y1, x2 - x1, y2 - y1);
 		}
+	}
+
+	@Override
+	public void setColor(Color color) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

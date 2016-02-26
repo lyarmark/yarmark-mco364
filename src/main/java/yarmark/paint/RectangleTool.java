@@ -65,4 +65,10 @@ public class RectangleTool implements Tool {
 		}
 	}
 
+	@Override
+	public void setColor(Color color) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

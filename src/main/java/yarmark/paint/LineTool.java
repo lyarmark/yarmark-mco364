@@ -35,4 +35,10 @@ public class LineTool implements Tool {
 		g.setColor(Color.pink);
 		g.drawLine(x1, y1, x2, y2);
 	}
+
+	@Override
+	public void setColor(Color color) {
+		// TODO Auto-generated method stub
+		
+	}
 }

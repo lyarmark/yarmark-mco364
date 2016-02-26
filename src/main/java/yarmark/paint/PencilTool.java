@@ -37,4 +37,10 @@ public class PencilTool implements Tool {
 		// TODO Auto-generated method stub
 
 	}
+
+	@Override
+	public void setColor(Color color) {
+		// TODO Auto-generated method stub
+		
+	}
 }
