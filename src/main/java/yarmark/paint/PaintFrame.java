@@ -9,7 +9,6 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JColorChooser;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.colorchooser.AbstractColorChooserPanel;
 import javax.swing.colorchooser.ColorSelectionModel;
@@ -51,6 +50,7 @@ public class PaintFrame extends JFrame implements ActionListener {
 		line.addActionListener(this);
 		rectangle.addActionListener(this);
 		oval.addActionListener(this);
+		bucket.addActionListener(this);
 
 		canvas = new Canvas();
 		buttons.add(pencil);
@@ -107,7 +107,7 @@ public class PaintFrame extends JFrame implements ActionListener {
 
 		}
 		if (e.getSource() == bucket) {
-			canvas.setTool(new BucketTool());
+			canvas.setTool(new BucketTool(canvas.getImage()));
 		}
 	}
 }

@@ -13,7 +13,7 @@ import javax.swing.JPanel;
 public class Canvas extends JPanel {
 	private static final long serialVersionUID = 1L;
 
-	private BufferedImage buffer;
+	private BufferedImage image;
 	private Tool tool;
 	private Stack<BufferedImage> undo;
 	private Stack<BufferedImage> redo;
@@ -21,7 +21,7 @@ public class Canvas extends JPanel {
 
 	public Canvas() {
 		this.tool = new PencilTool();
-		buffer = new BufferedImage(800, 600, BufferedImage.TYPE_INT_ARGB);
+		image = new BufferedImage(800, 600, BufferedImage.TYPE_INT_ARGB);
 
 		undo = new Stack<BufferedImage>();
 		redo = new Stack<BufferedImage>();
@@ -48,13 +48,13 @@ public class Canvas extends JPanel {
 
 			@Override
 			public void mousePressed(MouseEvent e) {
-				tool.mousePressed(buffer.getGraphics(), e.getX(), e.getY());
+				tool.mousePressed(image.getGraphics(), e.getX(), e.getY());
 				repaint();
 			}
 
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				tool.mouseReleased(buffer.getGraphics(), e.getX(), e.getY());
+				tool.mouseReleased(image.getGraphics(), e.getX(), e.getY());
 				repaint();
 
 			}
@@ -63,7 +63,7 @@ public class Canvas extends JPanel {
 
 			@Override
 			public void mouseDragged(MouseEvent e) {
-				tool.mouseDragged(buffer.getGraphics(), e.getX(), e.getY());
+				tool.mouseDragged(image.getGraphics(), e.getX(), e.getY());
 				repaint();
 			}
 
@@ -78,7 +78,7 @@ public class Canvas extends JPanel {
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		g.drawImage(buffer, 0, 0, null);
+		g.drawImage(image, 0, 0, null);
 		tool.drawPreview(g);
 
 	}
@@ -89,5 +89,9 @@ public class Canvas extends JPanel {
 
 	public void setColor(Color color) {
 		this.color = color;
+	}
+
+	public BufferedImage getImage() {
+		return image;
 	}
 }
