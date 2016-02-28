@@ -6,6 +6,8 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
+import java.awt.image.ColorModel;
+import java.awt.image.WritableRaster;
 import java.util.Stack;
 
 import javax.swing.JPanel;
@@ -23,6 +25,7 @@ public class Canvas extends JPanel {
 		image = new BufferedImage(800, 600, BufferedImage.TYPE_INT_ARGB);
 
 		undo = new Stack<BufferedImage>();
+		undo.push(deepCopyImage());
 		redo = new Stack<BufferedImage>();
 
 		this.addMouseListener(new MouseListener() {
@@ -47,6 +50,7 @@ public class Canvas extends JPanel {
 
 			@Override
 			public void mousePressed(MouseEvent e) {
+				undo.push(deepCopyImage());
 				tool.mousePressed(image.getGraphics(), e.getX(), e.getY());
 				repaint();
 			}
@@ -55,9 +59,9 @@ public class Canvas extends JPanel {
 			public void mouseReleased(MouseEvent e) {
 				tool.mouseReleased(image.getGraphics(), e.getX(), e.getY());
 				repaint();
-
 			}
 		});
+
 		addMouseMotionListener(new MouseMotionListener() {
 
 			@Override
@@ -79,7 +83,6 @@ public class Canvas extends JPanel {
 		super.paintComponent(g);
 		g.drawImage(image, 0, 0, null);
 		tool.drawPreview(g);
-
 	}
 
 	public void setTool(Tool tool) {
@@ -90,7 +93,27 @@ public class Canvas extends JPanel {
 		this.tool.setColor(color);
 	}
 
+	public void setImage(BufferedImage image) {
+		this.image = image;
+		repaint();
+	}
+
 	public BufferedImage getImage() {
 		return image;
+	}
+
+	public void undo() {
+		if (!undo.isEmpty()) {
+			BufferedImage undoImage = undo.pop();
+			this.setImage(undoImage);
+		}
+	}
+
+	public BufferedImage deepCopyImage() {
+		ColorModel model = this.image.getColorModel();
+		boolean isAlphaPremultiplied = model.isAlphaPremultiplied();
+		WritableRaster raster = this.image.copyData(null);
+		BufferedImage copyImage = new BufferedImage(model, raster, isAlphaPremultiplied, null);
+		return copyImage;
 	}
 }
