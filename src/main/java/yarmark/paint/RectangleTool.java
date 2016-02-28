@@ -8,6 +8,11 @@ public class RectangleTool implements Tool {
 	private int y1;
 	private int x2;
 	private int y2;
+	private Color color;
+
+	public RectangleTool(Color color) {
+		this.color = color;
+	}
 
 	@Override
 	public void mousePressed(Graphics g, int x, int y) {
@@ -19,7 +24,7 @@ public class RectangleTool implements Tool {
 
 	@Override
 	public void mouseReleased(Graphics g, int x, int y) {
-		g.setColor(Color.green);
+		g.setColor(this.color);
 		if (x1 > x2 && y1 > y2) {
 			// Q2
 			g.fillRect(x2, y2, x1 - x2, y1 - y2);
@@ -46,7 +51,7 @@ public class RectangleTool implements Tool {
 
 	@Override
 	public void drawPreview(Graphics g) {
-		g.setColor(Color.green);
+		g.setColor(this.color);
 		if (x1 > x2 && y1 > y2) {
 			// Q2
 			g.fillRect(x2, y2, x1 - x2, y1 - y2);
@@ -67,8 +72,6 @@ public class RectangleTool implements Tool {
 
 	@Override
 	public void setColor(Color color) {
-		// TODO Auto-generated method stub
-		
+		this.color = color;
 	}
-
 }

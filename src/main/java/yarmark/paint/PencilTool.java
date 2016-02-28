@@ -6,10 +6,15 @@ import java.awt.Graphics;
 public class PencilTool implements Tool {
 	private int x;
 	private int y;
+	private Color color;
+
+	public PencilTool(Color color) {
+		this.color = color;
+	}
 
 	@Override
 	public void mousePressed(Graphics g, int x, int y) {
-		g.setColor(Color.blue);
+		g.setColor(this.color);
 		g.fillOval(this.x, this.y, 1, 1);
 		this.x = x;
 		this.y = y;
@@ -17,7 +22,7 @@ public class PencilTool implements Tool {
 
 	@Override
 	public void mouseReleased(Graphics g, int x, int y) {
-		g.setColor(Color.blue);
+		g.setColor(this.color);
 		g.drawLine(this.x, this.y, x, y);
 		this.x = x;
 		this.y = y;
@@ -25,7 +30,7 @@ public class PencilTool implements Tool {
 
 	@Override
 	public void mouseDragged(Graphics g, int x, int y) {
-		g.setColor(Color.blue);
+		g.setColor(this.color);
 		g.drawLine(this.x, this.y, x, y);
 		this.x = x;
 		this.y = y;
@@ -34,13 +39,10 @@ public class PencilTool implements Tool {
 
 	@Override
 	public void drawPreview(Graphics g) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void setColor(Color color) {
-		// TODO Auto-generated method stub
-		
+		this.color = color;
 	}
 }

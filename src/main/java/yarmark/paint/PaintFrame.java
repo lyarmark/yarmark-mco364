@@ -27,8 +27,9 @@ public class PaintFrame extends JFrame implements ActionListener {
 	private Canvas canvas;
 	private Color color;
 
-	public void setColor(Color color) {
-		this.color = color;
+	public static void main(String[] args) {
+		PaintFrame paintFrame = new PaintFrame();
+		paintFrame.setVisible(true);
 	}
 
 	public PaintFrame() {
@@ -52,7 +53,6 @@ public class PaintFrame extends JFrame implements ActionListener {
 		oval.addActionListener(this);
 		bucket.addActionListener(this);
 
-		canvas = new Canvas();
 		buttons.add(pencil);
 		buttons.add(line);
 		buttons.add(rectangle);
@@ -77,37 +77,38 @@ public class PaintFrame extends JFrame implements ActionListener {
 			}
 		};
 		model.addChangeListener(changeListener);
-
 		buttons.add(cc);
+
+		setColor(Color.BLACK);
+		canvas = new Canvas(this.color);
 
 		container.add(canvas, BorderLayout.CENTER);
 		container.add(buttons, BorderLayout.SOUTH);
 	}
 
-	public static void main(String[] args) {
-		PaintFrame paintFrame = new PaintFrame();
-		paintFrame.setVisible(true);
+	public void setColor(Color color) {
+		this.color = color;
+		if (canvas != null) {
+			this.canvas.setColor(color);
+		}
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == pencil) {
-			canvas.setTool(new PencilTool());
+			canvas.setTool(new PencilTool(this.color));
 		}
 		if (e.getSource() == line) {
-			canvas.setTool(new LineTool());
-
+			canvas.setTool(new LineTool(this.color));
 		}
 		if (e.getSource() == rectangle) {
-			canvas.setTool(new RectangleTool());
-
+			canvas.setTool(new RectangleTool(this.color));
 		}
 		if (e.getSource() == oval) {
-			canvas.setTool(new OvalTool());
-
+			canvas.setTool(new OvalTool(this.color));
 		}
 		if (e.getSource() == bucket) {
-			canvas.setTool(new BucketTool(canvas.getImage()));
+			canvas.setTool(new BucketTool(canvas.getImage(), this.color));
 		}
 	}
 }

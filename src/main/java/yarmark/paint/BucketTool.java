@@ -8,14 +8,19 @@ import java.util.Queue;
 
 public class BucketTool implements Tool {
 	private BufferedImage image;
+	private Color color;
 
-	public BucketTool(BufferedImage image) {
+	public BucketTool(BufferedImage image, Color color) {
 		this.image = image;
+		this.color = color;
 	}
 
 	@Override
 	public void mousePressed(Graphics g, int x, int y) {
-		fill(x, y, image.getRGB(x, y), Color.black);
+		int source = image.getRGB(x, y);
+		if (source != this.color.getRGB()) {
+			fill(x, y, image.getRGB(x, y), this.color);
+		}
 	}
 
 	@Override
@@ -61,7 +66,6 @@ public class BucketTool implements Tool {
 
 	@Override
 	public void setColor(Color color) {
-		// TODO Auto-generated method stub
-
+		this.color = color;
 	}
 }

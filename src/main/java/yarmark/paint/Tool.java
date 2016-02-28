@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 public interface Tool {
-	Color color = Color.black;
 
 	// by definition, all methods of an interface are public
 	void mousePressed(Graphics g, int x, int y);

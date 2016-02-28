@@ -9,6 +9,11 @@ public class LineTool implements Tool {
 	private int y1;
 	private int x2;
 	private int y2;
+	private Color color;
+
+	public LineTool(Color color) {
+		this.color = color;
+	}
 
 	@Override
 	public void mousePressed(Graphics g, int x, int y) {
@@ -20,7 +25,7 @@ public class LineTool implements Tool {
 
 	@Override
 	public void mouseReleased(Graphics g, int x, int y) {
-		g.setColor(Color.pink);
+		g.setColor(this.color);
 		g.drawLine(x1, y1, x, y);
 	}
 
@@ -32,13 +37,12 @@ public class LineTool implements Tool {
 
 	@Override
 	public void drawPreview(Graphics g) {
-		g.setColor(Color.pink);
+		g.setColor(this.color);
 		g.drawLine(x1, y1, x2, y2);
 	}
 
 	@Override
 	public void setColor(Color color) {
-		// TODO Auto-generated method stub
-		
+		this.color = color;
 	}
 }
