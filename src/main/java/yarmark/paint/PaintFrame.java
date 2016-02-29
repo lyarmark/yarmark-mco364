@@ -122,6 +122,7 @@ public class PaintFrame extends JFrame implements ActionListener {
 			canvas.undo();
 		}
 		if (e.getSource() == redo) {
+			canvas.redo();
 		}
 	}
 }
