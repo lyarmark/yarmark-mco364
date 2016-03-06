@@ -1,6 +1,5 @@
 package yarmark.paint;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -19,33 +18,28 @@ public class Canvas extends JPanel {
 	private Tool tool;
 	private Stack<BufferedImage> undo;
 	private Stack<BufferedImage> redo;
+	private PaintProperties properties;
 
-	public Canvas(Color color) {
-		this.tool = new PencilTool(color);
-		image = new BufferedImage(800, 600, BufferedImage.TYPE_INT_ARGB);
-
-		undo = new Stack<BufferedImage>();
-		undo.push(deepCopyImage());
+	public Canvas(PaintProperties properties) {
+		this.properties = properties;
+		this.tool = new PencilTool(properties);
+		this.image = properties.getImage();
+		this.undo = new Stack<BufferedImage>();
+		this.undo.push(deepCopyImage());
 		redo = new Stack<BufferedImage>();
 
 		this.addMouseListener(new MouseListener() {
 
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				// TODO Auto-generated method stub
-
 			}
 
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				// TODO Auto-generated method stub
-
 			}
 
 			@Override
 			public void mouseExited(MouseEvent e) {
-				// TODO Auto-generated method stub
-
 			}
 
 			@Override
@@ -72,7 +66,6 @@ public class Canvas extends JPanel {
 
 			@Override
 			public void mouseMoved(MouseEvent e) {
-
 			}
 		});
 
@@ -87,10 +80,6 @@ public class Canvas extends JPanel {
 
 	public void setTool(Tool tool) {
 		this.tool = tool;
-	}
-
-	public void setColor(Color color) {
-		this.tool.setColor(color);
 	}
 
 	public void setImage(BufferedImage image) {

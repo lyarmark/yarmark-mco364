@@ -1,17 +1,15 @@
 package yarmark.paint;
 
-import java.awt.Color;
 import java.awt.Graphics;
 
-public class RectangleTool implements Tool {
+public class RectangleTool extends Tool {
 	private int x1;
 	private int y1;
 	private int x2;
 	private int y2;
-	private Color color;
 
-	public RectangleTool(Color color) {
-		this.color = color;
+	public RectangleTool(PaintProperties properties) {
+		super(properties);
 	}
 
 	@Override
@@ -24,7 +22,7 @@ public class RectangleTool implements Tool {
 
 	@Override
 	public void mouseReleased(Graphics g, int x, int y) {
-		g.setColor(this.color);
+		g.setColor(properties.getColor());
 		if (x1 > x2 && y1 > y2) {
 			// Q2
 			g.fillRect(x2, y2, x1 - x2, y1 - y2);
@@ -51,7 +49,7 @@ public class RectangleTool implements Tool {
 
 	@Override
 	public void drawPreview(Graphics g) {
-		g.setColor(this.color);
+		g.setColor(properties.getColor());
 		if (x1 > x2 && y1 > y2) {
 			// Q2
 			g.fillRect(x2, y2, x1 - x2, y1 - y2);
@@ -68,10 +66,5 @@ public class RectangleTool implements Tool {
 			// Q4
 			g.fillRect(x1, y1, x2 - x1, y2 - y1);
 		}
-	}
-
-	@Override
-	public void setColor(Color color) {
-		this.color = color;
 	}
 }

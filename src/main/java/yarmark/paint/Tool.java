@@ -1,19 +1,21 @@
 package yarmark.paint;
 
-import java.awt.Color;
 import java.awt.Graphics;
 
-public interface Tool {
+public abstract class Tool {
 
-	// by definition, all methods of an interface are public
-	void mousePressed(Graphics g, int x, int y);
+	protected PaintProperties properties;
 
-	void mouseReleased(Graphics g, int x, int y);
+	public Tool(PaintProperties properties) {
+		this.properties = properties;
+	}
 
-	void mouseDragged(Graphics g, int x, int y);
+	abstract void mousePressed(Graphics g, int x, int y);
 
-	void drawPreview(Graphics g);
+	abstract void mouseReleased(Graphics g, int x, int y);
 
-	void setColor(Color color);
+	abstract void mouseDragged(Graphics g, int x, int y);
+
+	abstract void drawPreview(Graphics g);
 
 }

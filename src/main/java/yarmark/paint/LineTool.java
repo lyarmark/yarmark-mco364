@@ -1,18 +1,16 @@
 package yarmark.paint;
 
-import java.awt.Color;
 import java.awt.Graphics;
 
-public class LineTool implements Tool {
+public class LineTool extends Tool {
 
 	private int x1;
 	private int y1;
 	private int x2;
 	private int y2;
-	private Color color;
 
-	public LineTool(Color color) {
-		this.color = color;
+	public LineTool(PaintProperties properties) {
+		super(properties);
 	}
 
 	@Override
@@ -25,7 +23,7 @@ public class LineTool implements Tool {
 
 	@Override
 	public void mouseReleased(Graphics g, int x, int y) {
-		g.setColor(this.color);
+		g.setColor(properties.getColor());
 		g.drawLine(x1, y1, x, y);
 	}
 
@@ -37,12 +35,7 @@ public class LineTool implements Tool {
 
 	@Override
 	public void drawPreview(Graphics g) {
-		g.setColor(this.color);
+		g.setColor(properties.getColor());
 		g.drawLine(x1, y1, x2, y2);
-	}
-
-	@Override
-	public void setColor(Color color) {
-		this.color = color;
 	}
 }

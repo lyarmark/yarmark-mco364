@@ -6,20 +6,19 @@ import java.awt.image.BufferedImage;
 import java.util.LinkedList;
 import java.util.Queue;
 
-public class BucketTool implements Tool {
+public class BucketTool extends Tool {
 	private BufferedImage image;
-	private Color color;
 
-	public BucketTool(BufferedImage image, Color color) {
-		this.image = image;
-		this.color = color;
+	public BucketTool(PaintProperties properties) {
+		super(properties);
+		this.image = properties.getImage();
 	}
 
 	@Override
 	public void mousePressed(Graphics g, int x, int y) {
 		int source = image.getRGB(x, y);
-		if (source != this.color.getRGB()) {
-			fill(x, y, image.getRGB(x, y), this.color);
+		if (source != properties.getColor().getRGB()) {
+			fill(x, y, image.getRGB(x, y), properties.getColor());
 		}
 	}
 
@@ -62,10 +61,5 @@ public class BucketTool implements Tool {
 
 	private void addSide(int x, int y, int source, Queue<Point> queue) {
 		queue.add(new Point(x, y));
-	}
-
-	@Override
-	public void setColor(Color color) {
-		this.color = color;
 	}
 }
