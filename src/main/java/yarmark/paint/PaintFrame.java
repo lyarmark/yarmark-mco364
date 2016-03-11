@@ -3,7 +3,6 @@ package yarmark.paint;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
-import java.awt.FlowLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,6 +17,10 @@ import javax.swing.colorchooser.ColorSelectionModel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import com.google.inject.Guice;
+import com.google.inject.Inject;
+import com.google.inject.Injector;
+
 public class PaintFrame extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
@@ -25,19 +28,20 @@ public class PaintFrame extends JFrame implements ActionListener {
 	private JButton undo;
 	private JButton redo;
 	private JPanel buttons;
-	private Canvas canvas;
-	private PaintProperties properties;
 	private ToolButton[] tools;
+	private PaintProperties properties;
+	private final Canvas canvas;
 
-	public PaintFrame() {
+	@Inject
+	public PaintFrame(PaintProperties properties) {
 		setTitle("Paint Frame");
 		setSize(800, 600);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		Container container = getContentPane();
 		container.setLayout(new BorderLayout());
-
-		properties = new PaintProperties();
+		this.properties = properties;
+		// creating a paintframe will create the whole application, using guice
 		canvas = new Canvas(properties);
 		setUndoRedo();
 		buttons = new JPanel();
@@ -92,19 +96,19 @@ public class PaintFrame extends JFrame implements ActionListener {
 	}
 
 	public void setColor(Color color) {
-		if (canvas != null) {
-			properties.setColor(color);
-		}
+		properties.setColor(color);
 	}
 
-	private void setUndoRedo() {undo = new JButton();
-	redo = new JButton();
-	undo.setIcon(new ImageIcon(new ImageIcon(getClass().getResource("/undo.jpg")).getImage().getScaledInstance(70,
-			70, Image.SCALE_SMOOTH)));
-	undo.setBackground(Color.white);
-	redo.setIcon(new ImageIcon(new ImageIcon(getClass().getResource("/redo.jpg")).getImage().getScaledInstance(70,
-			70, Image.SCALE_SMOOTH)));
-	redo.setBackground(Color.white);}
+	private void setUndoRedo() {
+		undo = new JButton();
+		redo = new JButton();
+		undo.setIcon(new ImageIcon(new ImageIcon(getClass().getResource("/undo.jpg")).getImage().getScaledInstance(70,
+				70, Image.SCALE_SMOOTH)));
+		undo.setBackground(Color.white);
+		redo.setIcon(new ImageIcon(new ImageIcon(getClass().getResource("/redo.jpg")).getImage().getScaledInstance(70,
+				70, Image.SCALE_SMOOTH)));
+		redo.setBackground(Color.white);
+	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -132,7 +136,10 @@ public class PaintFrame extends JFrame implements ActionListener {
 	}
 
 	public static void main(String[] args) {
-		PaintFrame paintFrame = new PaintFrame();
-		paintFrame.setVisible(true);
+		Injector injector = Guice.createInjector(new PaintModule());
+		PaintProperties properties = injector.getInstance(PaintProperties.class);
+
+		PaintFrame frame = injector.getInstance(PaintFrame.class);
+		frame.setVisible(true);
 	}
 }

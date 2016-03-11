@@ -3,6 +3,8 @@ package yarmark.paint;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 
+import com.google.inject.Inject;
+
 public class PaintProperties {
 	private BufferedImage image;
 	private Color color;
@@ -12,8 +14,20 @@ public class PaintProperties {
 	private int height;
 
 	public PaintProperties() {
-		this.image = new BufferedImage(800, 600, BufferedImage.TYPE_INT_ARGB);
-		this.color = Color.RED;
+		this.width = 800;
+		this.height = 600;
+		this.image = new BufferedImage(this.width, this.height, BufferedImage.TYPE_INT_ARGB);
+		this.weight = 1;
+		this.fill = false;
+	}
+
+	public PaintProperties(int width, int height, BufferedImage image, Color color, int weight, boolean fill) {
+		this.width = width;
+		this.height = height;
+		this.image = image;
+		this.color = color;
+		this.weight = weight;
+		this.fill = fill;
 	}
 
 	public BufferedImage getImage() {
@@ -63,6 +77,5 @@ public class PaintProperties {
 	public void setHeight(int height) {
 		this.height = height;
 	}
-	
-	
+
 }
