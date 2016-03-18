@@ -3,8 +3,9 @@ package yarmark.paint;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 
-import com.google.inject.Inject;
+import javax.inject.Singleton;
 
+@Singleton
 public class PaintProperties {
 	private BufferedImage image;
 	private Color color;
@@ -21,7 +22,7 @@ public class PaintProperties {
 		this.fill = false;
 		this.color = Color.black;
 	}
-
+/*
 	public PaintProperties(int width, int height, BufferedImage image, Color color, int weight, boolean fill) {
 		this.width = width;
 		this.height = height;
@@ -30,7 +31,7 @@ public class PaintProperties {
 		this.weight = weight;
 		this.fill = fill;
 	}
-
+*/
 	public BufferedImage getImage() {
 		return image;
 	}

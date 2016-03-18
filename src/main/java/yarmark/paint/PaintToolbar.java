@@ -2,7 +2,6 @@ package yarmark.paint;
 
 import java.awt.Color;
 import java.awt.Container;
-import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -22,25 +21,25 @@ import javax.swing.event.ChangeListener;
 @Singleton
 public class PaintToolbar extends Container {
 
-	PaintProperties properties;
-	JButton undo;
-	JButton redo;
+	private ToolButton[] tools;
+	private JButton colorChooser;
+	private JButton undo, redo;
+
+	// PaintProperties properties;
 
 	@Inject
 	public PaintToolbar(Canvas canvas, PaintProperties properties) {
-		this.properties = properties;
+		// this.properties = properties;
 		setLayout(new GridLayout(2, 1));
 
 		setUndoRedo();
 
-		ToolButton[] tools = new ToolButton[] { new ToolButton(new PencilTool(properties), "/pencil.jpg"),
+		// ToolButton[]
+		tools = new ToolButton[] { new ToolButton(new PencilTool(properties), "/pencil.jpg"),
 				new ToolButton(new LineTool(properties), "/line.jpg"),
 				new ToolButton(new RectangleTool(properties), "/rectangle.jpg"),
 				new ToolButton(new OvalTool(properties), "/oval.jpg"),
 				new ToolButton(new BucketTool(properties), "/bucket.png") };
-
-		JColorChooser cc = new JColorChooser();
-		setColorChooser(cc, canvas);
 
 		ActionListener listener = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -54,6 +53,8 @@ public class PaintToolbar extends Container {
 				}
 			}
 		};
+		JColorChooser cc = new JColorChooser();
+		setColorChooser(cc, properties);
 
 		undo.addActionListener(listener);
 		redo.addActionListener(listener);
@@ -80,7 +81,7 @@ public class PaintToolbar extends Container {
 		redo.setBackground(Color.white);
 	}
 
-	private void setColorChooser(JColorChooser cc, Canvas canvas) {
+	private void setColorChooser(JColorChooser cc, PaintProperties properties) {
 		AbstractColorChooserPanel[] panels = cc.getChooserPanels();
 
 		for (AbstractColorChooserPanel p : panels) {
