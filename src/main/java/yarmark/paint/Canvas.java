@@ -122,8 +122,4 @@ public class Canvas extends JPanel {
 		BufferedImage copyImage = new BufferedImage(model, raster, isAlphaPremultiplied, null);
 		return copyImage;
 	}
-
-	public void setColor(Color selectedColor) {
-		properties.setColor(selectedColor);
-	}
 }
