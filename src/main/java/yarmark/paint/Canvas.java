@@ -1,5 +1,6 @@
 package yarmark.paint;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -9,8 +10,11 @@ import java.awt.image.ColorModel;
 import java.awt.image.WritableRaster;
 import java.util.Stack;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
 import javax.swing.JPanel;
 
+@Singleton
 public class Canvas extends JPanel {
 	private static final long serialVersionUID = 1L;
 
@@ -19,7 +23,9 @@ public class Canvas extends JPanel {
 	private Stack<BufferedImage> undo;
 	private Stack<BufferedImage> redo;
 	private PaintProperties properties;
+	private Color color;
 
+	@Inject
 	public Canvas(PaintProperties properties) {
 		this.properties = properties;
 		this.tool = new PencilTool(properties);
@@ -115,5 +121,9 @@ public class Canvas extends JPanel {
 		WritableRaster raster = this.image.copyData(null);
 		BufferedImage copyImage = new BufferedImage(model, raster, isAlphaPremultiplied, null);
 		return copyImage;
+	}
+
+	public void setColor(Color selectedColor) {
+		properties.setColor(selectedColor);
 	}
 }
