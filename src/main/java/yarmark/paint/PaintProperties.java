@@ -18,7 +18,7 @@ public class PaintProperties {
 		this.width = 800;
 		this.height = 600;
 		this.image = new BufferedImage(this.width, this.height, BufferedImage.TYPE_INT_ARGB);
-		this.weight = 1;
+		this.weight = 6;
 		this.fill = false;
 		this.color = Color.black;
 	}
