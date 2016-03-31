@@ -1,6 +1,8 @@
 package yarmark.paint;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Stroke;
 import java.awt.image.BufferedImage;
 
 import javax.inject.Singleton;
@@ -9,7 +11,7 @@ import javax.inject.Singleton;
 public class PaintProperties {
 	private BufferedImage image;
 	private Color color;
-	private int weight;
+	private Stroke stroke;
 	private boolean fill;
 	private int width;
 	private int height;
@@ -18,20 +20,17 @@ public class PaintProperties {
 		this.width = 800;
 		this.height = 600;
 		this.image = new BufferedImage(this.width, this.height, BufferedImage.TYPE_INT_ARGB);
-		this.weight = 6;
+		this.stroke = new BasicStroke(6);
 		this.fill = false;
 		this.color = Color.black;
 	}
-/*
-	public PaintProperties(int width, int height, BufferedImage image, Color color, int weight, boolean fill) {
-		this.width = width;
-		this.height = height;
-		this.image = image;
-		this.color = color;
-		this.weight = weight;
-		this.fill = fill;
-	}
-*/
+
+	/*
+	 * public PaintProperties(int width, int height, BufferedImage image, Color
+	 * color, int weight, boolean fill) { this.width = width; this.height =
+	 * height; this.image = image; this.color = color; this.weight = weight;
+	 * this.fill = fill; }
+	 */
 	public BufferedImage getImage() {
 		return image;
 	}
@@ -48,12 +47,12 @@ public class PaintProperties {
 		this.color = color;
 	}
 
-	public int getWeight() {
-		return weight;
+	public Stroke getStroke() {
+		return stroke;
 	}
 
 	public void setWeight(int weight) {
-		this.weight = weight;
+		this.stroke = new BasicStroke(weight);
 	}
 
 	public boolean isFill() {
