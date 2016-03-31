@@ -15,12 +15,14 @@ public class PaintProperties {
 	private boolean fill;
 	private int width;
 	private int height;
+	private int weight;
 
 	public PaintProperties() {
 		this.width = 800;
 		this.height = 600;
 		this.image = new BufferedImage(this.width, this.height, BufferedImage.TYPE_INT_ARGB);
-		this.stroke = new BasicStroke(6);
+		this.weight = 10;
+		this.stroke = new BasicStroke(weight);
 		this.fill = false;
 		this.color = Color.black;
 	}
@@ -77,6 +79,10 @@ public class PaintProperties {
 
 	public void setHeight(int height) {
 		this.height = height;
+	}
+
+	public int getWeight() {
+		return weight;
 	}
 
 }
