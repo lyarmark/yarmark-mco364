@@ -2,11 +2,9 @@ package yarmark.paint;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.image.BufferedImage;
+import java.awt.Graphics2D;
 
-import org.junit.Assert;
 import org.junit.Test;
-
 import org.mockito.Mockito;
 
 public class LineToolTest {
@@ -23,7 +21,7 @@ public class LineToolTest {
 
 		LineTool tool = new LineTool(properties);
 
-		Graphics g = Mockito.mock(Graphics.class);
+		Graphics2D g = (Graphics2D) Mockito.mock(Graphics.class);
 		tool.mousePressed(g, 5, 4);
 		tool.mouseReleased(g, 9, 10);
 
@@ -47,7 +45,7 @@ public class LineToolTest {
 
 		Mockito.when(properties.getColor()).thenReturn(Color.RED);
 
-		Graphics g = Mockito.mock(Graphics.class);
+		Graphics2D g = (Graphics2D) Mockito.mock(Graphics.class);
 
 		tool.mousePressed(g, 5, 4);
 		tool.mouseReleased(g, 9, 10);
