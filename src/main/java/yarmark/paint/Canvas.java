@@ -1,6 +1,7 @@
 package yarmark.paint;
 
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -47,13 +48,13 @@ public class Canvas extends JPanel {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				undo.push(deepCopyImage());
-				tool.mousePressed(image.getGraphics(), e.getX(), e.getY());
+				tool.mousePressed((Graphics2D) image.getGraphics(), e.getX(), e.getY());
 				repaint();
 			}
 
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				tool.mouseReleased(image.getGraphics(), e.getX(), e.getY());
+				tool.mouseReleased((Graphics2D) image.getGraphics(), e.getX(), e.getY());
 				repaint();
 			}
 		});
@@ -62,7 +63,7 @@ public class Canvas extends JPanel {
 
 			@Override
 			public void mouseDragged(MouseEvent e) {
-				tool.mouseDragged(image.getGraphics(), e.getX(), e.getY());
+				tool.mouseDragged((Graphics2D) image.getGraphics(), e.getX(), e.getY());
 				repaint();
 			}
 
@@ -77,7 +78,7 @@ public class Canvas extends JPanel {
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		g.drawImage(image, 0, 0, null);
-		tool.drawPreview(g);
+		tool.drawPreview((Graphics2D) g);
 	}
 
 	public void setTool(Tool tool) {
