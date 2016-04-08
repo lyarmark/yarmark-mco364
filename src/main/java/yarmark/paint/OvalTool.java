@@ -1,6 +1,5 @@
 package yarmark.paint;
 
-import java.awt.Graphics;
 import java.awt.Graphics2D;
 
 public class OvalTool extends Tool {
@@ -9,8 +8,8 @@ public class OvalTool extends Tool {
 	private int x2;
 	private int y2;
 
-	public OvalTool(PaintProperties properties) {
-		super(properties);
+	public OvalTool(CanvasRepaintManager manager, PaintProperties properties) {
+		super(manager, properties);
 	}
 
 	@Override
@@ -25,22 +24,11 @@ public class OvalTool extends Tool {
 	@Override
 	public void mouseReleased(Graphics2D g, int x, int y) {
 		g.setColor(properties.getColor());
-		if (x1 > x2 && y1 > y2) {
-			// Q2
-			g.fillOval(x2, y2, x1 - x2, y1 - y2);
-		}
-		if (x2 > x1 && y1 > y2) {
-			// Q1
-			g.fillOval(x1, y2, x2 - x1, y1 - y2);
-		}
-		if (x1 > x2 && y2 > y1) {
-			// Q3
-			g.fillOval(x2, y1, x1 - x2, y2 - y1);
-		}
-		if (x2 > x1 && y2 > y1) {
-			// Q4
-			g.fillOval(x1, y1, x2 - x1, y2 - y1);
-		}
+		int xStart = Math.min(x1, x2);
+		int yStart = Math.min(y1, y2);
+		int width = Math.abs(x2 - x1);
+		int height = Math.abs(y2 - y1);
+		g.fillOval(xStart, yStart, width, height);
 	}
 
 	@Override
@@ -52,21 +40,11 @@ public class OvalTool extends Tool {
 	@Override
 	public void drawPreview(Graphics2D g) {
 		g.setColor(properties.getColor());
-		if (x1 > x2 && y1 > y2) {
-			// Q2
-			g.fillOval(x2, y2, x1 - x2, y1 - y2);
-		}
-		if (x2 > x1 && y1 > y2) {
-			// Q1
-			g.fillOval(x1, y2, x2 - x1, y1 - y2);
-		}
-		if (x1 > x2 && y2 > y1) {
-			// Q3
-			g.fillOval(x2, y1, x1 - x2, y2 - y1);
-		}
-		if (x2 > x1 && y2 > y1) {
-			// Q4
-			g.fillOval(x1, y1, x2 - x1, y2 - y1);
-		}
+		g.setColor(properties.getColor());
+		int xStart = Math.min(x1, x2);
+		int yStart = Math.min(y1, y2);
+		int width = Math.abs(x2 - x1);
+		int height = Math.abs(y2 - y1);
+		g.fillOval(xStart, yStart, width, height);
 	}
 }

@@ -1,6 +1,5 @@
 package yarmark.paint;
 
-import java.awt.Graphics;
 import java.awt.Graphics2D;
 
 public class RectangleTool extends Tool {
@@ -9,8 +8,8 @@ public class RectangleTool extends Tool {
 	private int x2;
 	private int y2;
 
-	public RectangleTool(PaintProperties properties) {
-		super(properties);
+	public RectangleTool(CanvasRepaintManager manager, PaintProperties properties) {
+		super(manager, properties);
 	}
 
 	@Override
@@ -24,22 +23,11 @@ public class RectangleTool extends Tool {
 	@Override
 	public void mouseReleased(Graphics2D g, int x, int y) {
 		g.setColor(properties.getColor());
-		if (x1 > x2 && y1 > y2) {
-			// Q2
-			g.fillRect(x2, y2, x1 - x2, y1 - y2);
-		}
-		if (x2 > x1 && y1 > y2) {
-			// Q1
-			g.fillRect(x1, y2, x2 - x1, y1 - y2);
-		}
-		if (x1 > x2 && y2 > y1) {
-			// Q3
-			g.fillRect(x2, y1, x1 - x2, y2 - y1);
-		}
-		if (x2 > x1 && y2 > y1) {
-			// Q4
-			g.fillRect(x1, y1, x2 - x1, y2 - y1);
-		}
+		int xStart = Math.min(x1, x2);
+		int yStart = Math.min(y1, y2);
+		int width = Math.abs(x2 - x1);
+		int height = Math.abs(y2 - y1);
+		g.fillRect(xStart, yStart, width, height);
 	}
 
 	@Override
@@ -51,21 +39,10 @@ public class RectangleTool extends Tool {
 	@Override
 	public void drawPreview(Graphics2D g) {
 		g.setColor(properties.getColor());
-		if (x1 > x2 && y1 > y2) {
-			// Q2
-			g.fillRect(x2, y2, x1 - x2, y1 - y2);
-		}
-		if (x2 > x1 && y1 > y2) {
-			// Q1
-			g.fillRect(x1, y2, x2 - x1, y1 - y2);
-		}
-		if (x1 > x2 && y2 > y1) {
-			// Q3
-			g.fillRect(x2, y1, x1 - x2, y2 - y1);
-		}
-		if (x2 > x1 && y2 > y1) {
-			// Q4
-			g.fillRect(x1, y1, x2 - x1, y2 - y1);
-		}
+		int xStart = Math.min(x1, x2);
+		int yStart = Math.min(y1, y2);
+		int width = Math.abs(x2 - x1);
+		int height = Math.abs(y2 - y1);
+		g.fillRect(xStart, yStart, width, height);
 	}
 }

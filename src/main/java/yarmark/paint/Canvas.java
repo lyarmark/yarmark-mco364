@@ -24,8 +24,8 @@ public class Canvas extends JPanel {
 	private Stack<BufferedImage> redo;
 
 	@Inject
-	public Canvas(PaintProperties properties) {
-		tool = new PencilTool(properties);
+	public Canvas(CanvasRepaintManager manager, PaintProperties properties) {
+		tool = new PencilTool(manager, properties);
 		undo = new Stack<BufferedImage>();
 		image = properties.getImage();
 		undo.push(deepCopyImage());
@@ -64,6 +64,9 @@ public class Canvas extends JPanel {
 			@Override
 			public void mouseDragged(MouseEvent e) {
 				tool.mouseDragged((Graphics2D) image.getGraphics(), e.getX(), e.getY());
+				// passing args to repaint allows you to define the area to be
+				// repainted
+				// it is only necessary to repaint changes
 				repaint();
 			}
 

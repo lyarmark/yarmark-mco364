@@ -21,6 +21,8 @@ import javax.swing.event.ChangeListener;
 @Singleton
 public class PaintToolbar extends Container {
 
+
+	private static final long serialVersionUID = 1L;
 	private ToolButton[] tools;
 	private JButton colorChooser;
 	private JButton undo, redo;

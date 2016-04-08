@@ -13,8 +13,8 @@ public class LineTool extends Tool {
 	private int x2;
 	private int y2;
 
-	public LineTool(PaintProperties properties) {
-		super(properties);
+	public LineTool(CanvasRepaintManager manager, PaintProperties properties) {
+		super(manager, properties);
 	}
 
 	@Override
@@ -29,6 +29,7 @@ public class LineTool extends Tool {
 	public void mouseReleased(Graphics2D g, int x, int y) {
 		g.setColor(properties.getColor());
 		g.drawLine(x1, y1, x, y);
+		repaintManager.repaint(x1, y1, x, y);
 	}
 
 	@Override

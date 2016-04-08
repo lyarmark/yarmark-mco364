@@ -9,8 +9,8 @@ import java.util.Queue;
 public class BucketTool extends Tool {
 	private BufferedImage image;
 
-	public BucketTool(PaintProperties properties) {
-		super(properties);
+	public BucketTool(CanvasRepaintManager manager,PaintProperties properties) {
+		super(manager, properties);
 		this.image = properties.getImage();
 	}
 
