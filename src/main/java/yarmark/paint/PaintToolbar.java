@@ -73,8 +73,9 @@ public class PaintToolbar extends Container {
 	private void setUndoRedo() {
 		undo = new JButton();
 		redo = new JButton();
-		undo.setIcon(new ImageIcon(new ImageIcon(getClass().getResource("/undo.jpg")).getImage().getScaledInstance(70,
-				70, Image.SCALE_SMOOTH)));
+		ImageIcon icon = new ImageIcon(getClass().getResource("/undo.jpg"));
+		Image image = icon.getImage().getScaledInstance(70, 70, Image.SCALE_SMOOTH);
+		undo.setIcon(new ImageIcon(image));
 		undo.setBackground(Color.white);
 		redo.setIcon(new ImageIcon(new ImageIcon(getClass().getResource("/redo.jpg")).getImage().getScaledInstance(70,
 				70, Image.SCALE_SMOOTH)));
