@@ -98,9 +98,9 @@ public class Canvas extends JPanel {
 		if (!undo.isEmpty()) {
 			if (!undo.isEmpty() && undo.size() != 1) {
 				redo.push(deepCopyImage());
+				BufferedImage undoImage = undo.pop();
+				this.setImage(undoImage);
 			}
-			BufferedImage undoImage = undo.pop();
-			this.setImage(undoImage);
 		}
 	}
 
